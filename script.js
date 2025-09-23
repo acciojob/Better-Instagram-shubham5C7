@@ -1,27 +1,27 @@
 const images = document.querySelectorAll('.image');
 
-let dragSrc = null;
-
 images.forEach(img => {
-  img.addEventListener('dragstart', e => {
-    dragSrc = img;
-    e.dataTransfer.effectAllowed = 'move';
+
+  img.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("text", e.target.id);
   });
 
-  img.addEventListener('dragover', e => {
-    e.preventDefault(); 
-    e.dataTransfer.dropEffect = 'move';
-  });
-
-  img.addEventListener('drop', e => {
+  img.addEventListener("dragover", (e) => {
     e.preventDefault();
-    if (dragSrc !== img) {
-      const parent = img.parentNode;
-      parent.insertBefore(dragSrc, img); 
-    }
   });
 
-  img.addEventListener('dragend', () => {
-    dragSrc = null;
+  img.addEventListener("drop", (e) => {
+    e.preventDefault();
+    
+    const draggedId = e.dataTransfer.getData("text");
+    const dragged = document.getElementById(draggedId);
+
+    const parent = e.target.parentNode;
+    const targetNext = e.target.nextSibling;
+
+    if(dragged !== e.target){
+      parent.insertBefore(dragged, e.target);
+      parent.insertBefore(e.target, targetNext);
+    }
   });
 });
