@@ -1,27 +1,43 @@
-const images = document.querySelectorAll('.image');
+ const images = document.querySelectorAll(".image");
 
-images.forEach(img => {
+ function updateLabels() {
+   images.forEach(div => {
+     const img = div.querySelector("img");
+     div.setAttribute("data-label", img.alt);
+   });
+ }
+ updateLabels();
 
-  img.addEventListener("dragstart", (e) => {
-    e.dataTransfer.setData("text", e.target.id);
-  });
+ for (let div of images) {
+   div.addEventListener("dragstart", (e) => {
+     e.dataTransfer.setData("text/plain", e.currentTarget.querySelector("img").src);
+   });
 
-  img.addEventListener("dragover", (e) => {
-    e.preventDefault();
-  });
+   div.addEventListener("dragover", (e) => {
+     e.preventDefault();
+   });
 
-  img.addEventListener("drop", (e) => {
-    e.preventDefault();
+   div.addEventListener("drop", (e) => {
+     e.preventDefault();
+     const targetImg = e.currentTarget.querySelector("img");
+     const draggedSrc = e.dataTransfer.getData("text/plain");
+
     
-    const draggedId = e.dataTransfer.getData("text");
-    const dragged = document.getElementById(draggedId);
+     const draggedImg = [...document.querySelectorAll(".image img")].find(img => img.src === draggedSrc);
 
-    const parent = e.target.parentNode;
-    const targetNext = e.target.nextSibling;
+     if (draggedImg && targetImg && draggedImg !== targetImg) {
 
-    if(dragged !== e.target){
-      parent.insertBefore(dragged, e.target);
-      parent.insertBefore(e.target, targetNext);
-    }
-  });
-});
+       const tempSrc = draggedImg.src;
+       draggedImg.src = targetImg.src;
+       targetImg.src = tempSrc;
+
+
+       const tempAlt = draggedImg.alt;
+       draggedImg.alt = targetImg.alt;
+       targetImg.alt = tempAlt;
+
+    
+       updateLabels();
+     }
+   });
+ }

@@ -1,85 +1,39 @@
 
-body{
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-.flex{
-   width:00px;
-   height: 300px;
-   background-color: rgb(206, 206, 206);
-     display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-   
+  body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100vw;
+    height:100vh;
+  }
+  .flex{
+    width:600px;
+    height:400px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+.image img {
+   width: 60px; 
+   height: 400px;
+   margin-left: 20px;
+   object-fit: cover;
 }
-#drag1 {
-  background-image: url("https://picsum.photos/id/237/200/300");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
+.image {
+  position: relative;
+  margin: 10px;
+  font-size: 0; 
 }
-
-#drag2 {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
-}
-
-#drag3 {
-  background-image: url("https://picsum.photos/200/300?grayscale");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
-}
-
-#drag4 {
-  background-image: url("https://picsum.photos/200/300/");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
-}
-
-#drag5 {
-  background-image: url("https://picsum.photos/200/300.jpg");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
-}
-
-#drag6 {
-  background-image: url("https://picsum.photos/id/102/200/300");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
-}
-
-div.container {
-  border: 5px solid #555;
-}
-
-.flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.selected {
-  border: 5px solid rgb(0, 195, 255);
-}
-
-p {
-  text-align: center;
-}
-
-button {
-  margin: 20px;
+.image::after {
+  content: attr(data-label);
+  position: absolute;
+  top:0px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #070707;
+  font-size: 14px;
+  font-weight: bold;
 }
